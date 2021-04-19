@@ -1,0 +1,57 @@
+<html>
+    <head>
+        <title>W02: task3</title>
+    </head>
+    <body>
+        <script src="vec3.js"></script>
+        <script>
+            document.write("3つの点を(x,y,z)として入力して下さい<br>"+"点1");
+        </script>
+        <input type="number" id="x0">
+        <input type="number" id="y0">
+        <input type="number" id="z0">
+        <script>
+            document.write("<br>"+"点2");
+        </script>
+        <input type="number" id="x1">
+        <input type="number" id="y1">
+        <input type="number" id="z1">
+        <script>
+            document.write("<br>"+"点3");
+        </script>
+        <input type="number" id="x2">
+        <input type="number" id="y2">
+        <input type="number" id="z2">
+        <script>
+            document.write("<br>");
+        </script>
+        <input type="button"
+            onclick="e()"
+            value="3点からなる面積を求める"/>
+        <script>
+            function e() 
+            {
+                var x0, y0, z0; // (input vertex 0)
+                var x1, y1, z1; // (input vertex 1)
+                var x2, y2, z2; // (input vertex 2)
+                x0 = document.getElementById("x0");
+                y0 = document.getElementById("y0");
+                z0 = document.getElementById("z0");
+                x1 = document.getElementById("x1");
+                y1 = document.getElementById("y1");
+                z1 = document.getElementById("z1");
+                x2 = document.getElementById("x2");
+                y2 = document.getElementById("y2");
+                z2 = document.getElementById("z2");
+                var v0 = new Vec3( x0.value, y0.value, z0.value );
+                var v1 = new Vec3( x1.value, y1.value, z1.value );
+                var v2 = new Vec3( x2.value, y2.value, z2.value );
+                var v0v1 = ((v0.x-v1.x) ** 2) + ((v0.y-v1.y) ** 2) + ((v0.z-v1.z) ** 2);
+                var v0v2 = ((v0.x-v2.x) ** 2) + ((v0.y-v2.y) ** 2) + ((v0.z-v2.z) ** 2);
+                var a = (v0.x-v1.x)*(v0.x-v2.x) + (v0.y-v1.y)*(v0.y-v2.y) + (v0.z-v1.z)*(v0.z-v2.z);
+                var S = Math.sqrt( v0v1 * v0v2 - ( a ** 2) ) / 2;
+                document.write("<br>面積は", S );
+            }
+        </script>
+    </body>
+</html>
