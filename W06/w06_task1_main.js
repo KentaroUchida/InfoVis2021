@@ -1,4 +1,4 @@
-d3.csv("https://KentaroUchida.github.io/InfoVis2021/W04/data.csv")
+d3.csv("https://KentaroUchida.github.io/InfoVis2021/W06/data.csv")
     .then( data => {
         data.forEach( d => { d.x = +d.x; d.y = +d.y; });
 
@@ -68,7 +68,7 @@ class ScatterPlot {
         const xmax = d3.max( self.data, d => d.x );
         const ymin = d3.min( self.data, d => d.y );
         const ymax = d3.max( self.data, d => d.y );
-        
+
         self.xscale.domain( [0, Math.max(xmax,ymax)+10] );
         self.yscale.domain( [0, Math.max(xmax,ymax)+10] );
 
