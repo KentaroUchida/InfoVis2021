@@ -5,8 +5,8 @@ d3.csv("https://KentaroUchida.github.io/InfoVis2021/W08/data_task1.csv")
         var config = {
             parent: '#drawing_region',
             width: 512,
-            height: 2046,
-            margin: {top:50, right:10, bottom:50, left:100}
+            height: 512,
+            margin: {top:50, right:10, bottom:50, left:150}
         };
 
         const bar_chart = new BarChart( config, data );
@@ -22,8 +22,8 @@ class BarChart {
         this.config = {
             parent: config.parent,
             width: config.width || 512,
-            height: config.height || 2046,
-            margin: config.margin || {top:50, right:10, bottom:50, left:100}
+            height: config.height || 512,
+            margin: config.margin || {top:50, right:10, bottom:50, left:150}
         }
         this.data = data;
         this.init();
@@ -65,20 +65,20 @@ class BarChart {
         self.yaxis_group = self.chart.append('g')
 
         self.chart.append("text")
-            .attr("x", self.inner_width / 2)
+            .attr("x", self.inner_width / 3.5)
             .attr("y", self.inner_height + self.config.margin.bottom)
-            .text("minimum wages");
+            .text("minimum wages (dollar)");
 
         self.chart.append("text")
             .attr("transform", "rotate(-90)")
             .attr("y", 0 - self.config.margin.left / 1.5)
-            .attr("x", - self.inner_height / 2)
+            .attr("x", - self.inner_height / 1.85)
             .text("country");
 
         self.chart.append("text")
-            .attr("x", self.inner_width / 5)
-            .attr("y", 0 - self.config.margin.top / 3)
-            .style("font-size", '24px')
+            .attr("x", -75 )
+            .attr("y", 0 - self.config.margin.top / 2)
+            .style("font-size", '16px')
             .style("font-weight", 'bold')
             .text("Minimum wages of countries in the world (dollar)");
     }
@@ -86,7 +86,7 @@ class BarChart {
     update() {
         let self = this;
 
-        self.xscale.domain( [0, d3.max(self.data, d=> d.value)] );
+        self.xscale.domain( [0, 5000+parseInt(d3.max(self.data, d=> d.value))] );
         self.yscale.domain(self.data.map(d => d.country));
 
         self.render();
@@ -99,7 +99,7 @@ class BarChart {
         self.chart.selectAll("rect").data(self.data).enter()
             .append("rect")
             .attr("x", 0)
-            .attr("y", d => self.yscale(d.label))
+            .attr("y", d => self.yscale(d.country))
             .attr("width", d => self.xscale(d.value))
             .attr("height", self.yscale.bandwidth())
             .style("fill", d => d.color);
