@@ -66,7 +66,7 @@ class BarChart {
 
         self.chart.append("text")
             .attr("x", self.inner_width / 3.5)
-            .attr("y", self.inner_height + self.config.margin.bottom)
+            .attr("y", self.inner_height + self.config.margin.bottom-10)
             .text("minimum wages (dollar)");
 
         self.chart.append("text")
