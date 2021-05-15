@@ -7,7 +7,7 @@ d3.csv("https://KentaroUchida.github.io/InfoVis2021/W08/data_task3.csv")
             width: 512,
             height: 512,
             margin: {top:50, right:10, bottom:50, left:150},
-            radius: Math.min( width, height ) / 2
+            radius: 100
         };
 
         const pie_chart = new PieChart( config, data );
@@ -25,7 +25,7 @@ class PieChart {
             width: config.width || 512,
             height: config.height || 512,
             margin: config.margin || {top:50, right:10, bottom:50, left:150},
-            radius: config.radius || Math.min( config.width, config.height ) / 2
+            radius: config.radius || 100
         }
         this.data = data;
         this.init();
@@ -39,7 +39,7 @@ class PieChart {
             .attr('height', self.config.height);
 
         self.chart = self.svg.append('g')
-            .attr('transform', `translate(${self.config.margin.left}, ${self.config.margin.top})`);
+            .attr('transform', `translate(${self.config.width/2}, ${self.config.height/2})`);
 
         self.inner_width = self.config.width - self.config.margin.left - self.config.margin.right;
         self.inner_height = self.config.height - self.config.margin.top - self.config.margin.bottom;
@@ -86,6 +86,6 @@ class PieChart {
             .attr("dy", "5px")
             .attr("font", "10px")
             .attr("text-anchor", "middle")
-            .text(d => d.data.value);
+            .text(d => d.data.label);
     }
 }
