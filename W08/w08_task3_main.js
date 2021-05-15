@@ -6,8 +6,8 @@ d3.csv("https://KentaroUchida.github.io/InfoVis2021/W08/data_task3.csv")
             parent: '#drawing_region',
             width: 512,
             height: 512,
-            margin: {top:50, right:10, bottom:50, left:150},
-            radius: 100
+            margin: {top:30, right:10, bottom:50, left:30},
+            radius: 150
         };
 
         const pie_chart = new PieChart( config, data );
@@ -24,8 +24,8 @@ class PieChart {
             parent: config.parent,
             width: config.width || 512,
             height: config.height || 512,
-            margin: config.margin || {top:50, right:10, bottom:50, left:150},
-            radius: config.radius || 100
+            margin: config.margin || {top:30, right:10, bottom:50, left:30},
+            radius: config.radius || 150
         }
         this.data = data;
         this.init();
@@ -51,9 +51,9 @@ class PieChart {
             .innerRadius(self.config.radius/3)
             .outerRadius(self.config.radius);
       
-        self.chart.append("text")
-            .attr("x", -75 )
-            .attr("y", 0 - self.config.margin.top / 2)
+        self.svg.append("text")
+            .attr("x", 110 )
+            .attr("y", 50)
             .style("font-size", '16px')
             .style("font-weight", 'bold')
             .text("Average sleep time for Japanese");
