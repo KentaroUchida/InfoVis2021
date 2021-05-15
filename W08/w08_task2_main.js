@@ -10,7 +10,7 @@ d3.csv("https://KentaroUchida.github.io/InfoVis2021/W08/data_task2.csv")
         };
 
         const line_chart = new LineChart( config, data );
-        Line_chart.update();
+        line_chart.update();
     })
     .catch( error => {
         console.log( error );
@@ -61,8 +61,8 @@ class LineChart {
             .attr('transform', `translate(0, 0)`);
 
         self.line = d3.line()
-            .x( d => d.x )
-            .y( d => d.y );
+            .x( d => self.xscale(d.x) )
+            .y( d => self.yscale(d.y) );
 
         self.chart.append("text")
             .attr("x", 175)
