@@ -6,6 +6,7 @@ d3.csv("https://KentaroUchida.github.io/InfoVis2021/W10/data_task2.csv")
             parent: '#drawing_region',
             width: 512,
             height: 512,
+            padding: 10,
             margin: {top:100, right:100, bottom:100, left:100}
         };
 
@@ -23,6 +24,7 @@ class LineChart {
             parent: config.parent,
             width: config.width || 512,
             height: config.height || 512,
+            padding: config.padding || 10,
             margin: config.margin || {top:100, right:100, bottom:100, left:100}
         }
         this.data = data;
@@ -64,6 +66,11 @@ class LineChart {
             .x( d => self.xscale(d.x) )
             .y( d => self.yscale(d.y) );
 
+        self.area = d3.area()
+            .x( d => self.xscale( d.x ) )
+            .y1( d => self.yscale( d.y ) )
+            .y0( self.yscale(0) );
+
         self.chart.append("text")
             .attr("x", 175)
             .attr("y", -20)
@@ -102,43 +109,47 @@ class LineChart {
         self.xscale.domain( [0, Math.max(xmax,ymax)+10] );
         self.yscale.domain( [0, Math.max(xmax,ymax)+10] );
 
-        self.render();
-    }
-
-    render() {
-        let self = this;
-
         self.chart.append('path')
-            .attr('d', self.line(self.data))
+            .attr('d', self.area(self.data))
             .attr('stroke', 'gray')
             .attr('fill', 'lightgray');
         
-        let circles = self.chart.selectAll("circle")
+        self.circles = self.chart.selectAll("circle")
             .data(self.data)
             .enter()
             .append("circle");
-
-        circles
-            .attr("cx", d => self.xscale( d.x ) )
-            .attr("cy", d => self.yscale( d.y ) )
-            .attr("r", d => d.r )
-            .style("fill", d => d.color );
-            
-        circles
+        
+        self.circles
             .on('mouseover', (e,d) => {
                 d3.select('#tooltip')
                     .style('opacity', 1)
-                    .html(`<div class="tooltip-label">Position</div>(${d.x}, ${d.y})`);
+                    .html(`<div class="tooltip-label">${d.label}</div>(${d.x}, ${d.y})`);
+                self.render(d.label);
             })
             .on('mousemove', (e) => {
-                const padding = 10;
                 d3.select('#tooltip')
-                    .style('left', (e.pageX + padding) + 'px')
-                    .style('top', (e.pageY + padding) + 'px');
+                    .style('left', (e.pageX + self.config.padding) + 'px')
+                    .style('top', (e.pageY + self.config.padding) + 'px');
             })
             .on('mouseleave', () => {
                 d3.select('#tooltip')
                     .style('opacity', 0);
+                self.render("");
+            });
+
+        self.render("");
+    }
+
+    render(colorlabel) {
+        let self = this;
+
+        self.circles
+            .attr("cx", d => self.xscale( d.x ) )
+            .attr("cy", d => self.yscale( d.y ) )
+            .attr("r", d => d.r )
+            .style("fill", d => {
+                if (d.label == colorlabel ){ return "red"; }
+                return d.color;
             });
 
         self.xaxis_group
