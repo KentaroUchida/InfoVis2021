@@ -1,4 +1,4 @@
-d3.csv("https://KentaroUchida.github.io/InfoVis2021/W08/data_task2.csv")
+d3.csv("https://KentaroUchida.github.io/InfoVis2021/W10/data_task2.csv")
     .then( data => {
         data.forEach( d => { d.x = +d.x; d.y = +d.y; });
 
@@ -88,6 +88,7 @@ class LineChart {
             .text("Y-label")
             .attr("font-size", "15px")
             .attr('text-anchor', "middle");
+
     }
 
     update() {
@@ -111,14 +112,33 @@ class LineChart {
             .attr('d', self.line(self.data))
             .attr('stroke', 'purple')
             .attr('fill', 'none');
-
-        self.chart.selectAll("circle")
+        
+        let circles = self.chart.selectAll('circle')
             .data(self.data)
             .enter()
-            .append("circle")
+            .append("circle");
+
+        circles
             .attr("cx", d => self.xscale( d.x ) )
             .attr("cy", d => self.yscale( d.y ) )
             .attr("r", d => d.r );
+            
+        circles
+            .on('mouseover', (e,d) => {
+                d3.select('#tooltip')
+                    .style('opacity', 1)
+                    .html(`<div class="tooltip-label">Position</div>(${d.x}, ${d.y})`);
+            })
+            .on('mousemove', (e) => {
+                const padding = 10;
+                d3.select('#tooltip')
+                    .style('left', (e.pageX + padding) + 'px')
+                    .style('top', (e.pageY + padding) + 'px');
+            })
+            .on('mouseleave', () => {
+                d3.select('#tooltip')
+                    .style('opacity', 0);
+            });
 
         self.xaxis_group
             .call( self.xaxis );
