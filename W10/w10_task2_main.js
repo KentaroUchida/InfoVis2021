@@ -110,8 +110,8 @@ class LineChart {
 
         self.chart.append('path')
             .attr('d', self.line(self.data))
-            .attr('stroke', 'purple')
-            .attr('fill', 'none');
+            .attr('stroke', 'gray')
+            .attr('fill', 'lightgray');
         
         let circles = self.chart.selectAll("circle")
             .data(self.data)

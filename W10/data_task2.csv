@@ -1,6 +1,6 @@
 x,y,r,label,color
-20,20,10,a,pink
-100,50,10,b,pink
-70,80,10,c,pink
-170,30,10,d,pink
-150,70,10,e,pink
+20,20,7,a,lightslategray
+100,50,7,b,lightslategray
+70,80,7,c,lightslategray
+170,30,7,d,lightslategray
+150,70,7,e,lightslategray
