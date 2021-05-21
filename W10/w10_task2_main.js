@@ -121,7 +121,8 @@ class LineChart {
         circles
             .attr("cx", d => self.xscale( d.x ) )
             .attr("cy", d => self.yscale( d.y ) )
-            .attr("r", d => d.r );
+            .attr("r", d => d.r )
+            .style("fill", d => d.color );
             
         circles
             .on('mouseover', (e,d) => {
