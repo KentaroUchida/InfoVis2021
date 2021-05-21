@@ -113,7 +113,7 @@ class LineChart {
             .attr('stroke', 'purple')
             .attr('fill', 'none');
         
-        let circles = self.chart.selectAll('circle')
+        let circles = self.chart.selectAll("circle")
             .data(self.data)
             .enter()
             .append("circle");
