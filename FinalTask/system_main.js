@@ -29,14 +29,25 @@ d3.csv("https://kentarouchida.github.io/InfoVis2021/FinalTask/final_task_data.cs
         scatter_plot.update();
         */
 
-        bar_chart = new BarChart( {
-            parent: '#drawing_region_barchart',
+        bar_chart_cedar = new BarChartCedar( {
+            parent: '#drawing_region_barchart_cedar',
             width: 512,
-            height: 512,
+            height: 256,
             margin: {top:10, right:10, bottom:50, left:50},
-            xlabel: 'Species',
+            xlabel: 'date',
+            ylabel: 'Amount of pollen dispersed',
         }, input_data );
-        bar_chart.update();
+        bar_chart_cedar.update();
+
+        bar_chart_cypress = new BarChartCypress( {
+            parent: '#drawing_region_barchart_cypress',
+            width: 512,
+            height: 256,
+            margin: {top:10, right:10, bottom:50, left:50},
+            xlabel: 'date',
+            ylabel: 'Amount of pollen dispersed',
+        }, input_data );
+        bar_chart_cypress.update();
     })
     .catch( error => {
         console.log( error );

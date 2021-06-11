@@ -1,4 +1,4 @@
-class BarChart {
+class BarChartCypress {
     constructor (config, data) {
         this.config = {
             parent: config.parent,
@@ -34,7 +34,7 @@ class BarChart {
             .range([self.inner_height, 0]);
 
         self.xaxis = d3.axisBottom(self.xscale)
-            .ticks(['setosa','versicolor','virginica'])
+            .ticks(5)
             .tickSizeOuter(0);
 
         self.yaxis = d3.axisLeft(self.yscale)
@@ -85,15 +85,13 @@ class BarChart {
         self.xvalue = d => d.date;
         self.yvalue = d => d.cedar;
 
-        console.log(typeof(self.data.cedar));
-
         const xmin = d3.min( self.data, self.xvalue );
         const xmax = d3.max( self.data, self.xvalue );
-        self.xscale.domain( [xmin, xmax] );
+        self.xscale.domain( self.data.map(d => d.date) );
 
         const ymin = d3.min( self.data, self.yvalue );
         const ymax = d3.max( self.data, self.yvalue );
-        self.yscale.domain( [ymax, ymin] );
+        self.yscale.domain( [ymin, ymax] );
 
         self.render();
     }
