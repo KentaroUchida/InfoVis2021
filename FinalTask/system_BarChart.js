@@ -7,7 +7,6 @@ class BarChart {
             margin: config.margin || {top:10, right:10, bottom:10, left:10},
             xlabel: config.xlabel || '',
             ylabel: config.ylabel || '',
-            cscale: config.cscale
         };
         this.data = data;
         this.init();
@@ -68,6 +67,7 @@ class BarChart {
     update() {
         let self = this;
 
+        /*
         const data_map = d3.rollup( self.data, v => v.length, d => d.species );
         self.aggregated_data = Array.from( data_map, ([key,count]) => ({key,count}) );
 
@@ -81,6 +81,17 @@ class BarChart {
         const ymin = 0;
         const ymax = d3.max( self.aggregated_data, self.yvalue );
         self.yscale.domain([ymin, ymax]);
+        */
+        self.xvalue = d => d.date;
+        self.yvalue = d => d.cedar;
+
+        const xmin = d3.min( self.data, self.xvalue );
+        const xmax = d3.max( self.data, self.xvalue );
+        self.xscale.domain( [xmin, xmax] );
+
+        const ymin = d3.min( self.data, self.yvalue );
+        const ymax = d3.max( self.data, self.yvalue );
+        self.yscale.domain( [ymax, ymin] );
 
         self.render();
     }
@@ -89,25 +100,14 @@ class BarChart {
         let self = this;
 
         self.chart.selectAll(".bar")
-            .data(self.aggregated_data)
+            .data(self.data)
             .join("rect")
             .attr("class", "bar")
             .attr("x", d => self.xscale( self.xvalue(d) ) )
             .attr("y", d => self.yscale( self.yvalue(d) ) )
             .attr("width", self.xscale.bandwidth())
             .attr("height", d => self.inner_height - self.yscale( self.yvalue(d) ))
-            .attr("fill", d => self.config.cscale( self.cvalue(d) ))
-            .on('click', function(ev,d) {
-                const is_active = filter.includes(d.key);
-                if ( is_active ) {
-                    filter = filter.filter( f => f !== d.key );
-                }
-                else {
-                    filter.push( d.key );
-                }
-                Filter();
-                d3.select(this).classed('active', !is_active);
-            });
+            .attr("fill", "red" );
 
         self.xaxis_group
             .call(self.xaxis);

@@ -7,10 +7,13 @@ d3.csv("https://kentarouchida.github.io/InfoVis2021/FinalTask/final_task_data.cs
     .then( data => {
         input_data = data;
         input_data.forEach( d => {
-            d.sepal_length = +d.sepal_length;
-            d.sepal_width = +d.sepal_width;
+            d.rain = +d.rain;
+            d.sun = +d.sun;
+            d.cedar = +d.cedar;
+            d.cypress = +d.cypress;
         });
 
+        /*
         const color_scale = d3.scaleOrdinal( d3.schemeCategory10 );
         color_scale.domain(['setosa','versicolor','virginica']);
 
@@ -24,6 +27,7 @@ d3.csv("https://kentarouchida.github.io/InfoVis2021/FinalTask/final_task_data.cs
             cscale: color_scale
         }, input_data );
         scatter_plot.update();
+        */
 
         bar_chart = new BarChart( {
             parent: '#drawing_region_barchart',
@@ -31,7 +35,6 @@ d3.csv("https://kentarouchida.github.io/InfoVis2021/FinalTask/final_task_data.cs
             height: 256,
             margin: {top:10, right:10, bottom:50, left:50},
             xlabel: 'Species',
-            cscale: color_scale
         }, input_data );
         bar_chart.update();
     })
