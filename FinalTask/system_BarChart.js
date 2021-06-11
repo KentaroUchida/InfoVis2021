@@ -85,6 +85,8 @@ class BarChart {
         self.xvalue = d => d.date;
         self.yvalue = d => d.cedar;
 
+        console.log(typeof(self.data.cedar));
+
         const xmin = d3.min( self.data, self.xvalue );
         const xmax = d3.max( self.data, self.xvalue );
         self.xscale.domain( [xmin, xmax] );
@@ -98,7 +100,7 @@ class BarChart {
 
     render() {
         let self = this;
-
+        
         self.chart.selectAll(".bar")
             .data(self.data)
             .join("rect")

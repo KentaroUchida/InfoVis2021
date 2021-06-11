@@ -31,8 +31,8 @@ d3.csv("https://kentarouchida.github.io/InfoVis2021/FinalTask/final_task_data.cs
 
         bar_chart = new BarChart( {
             parent: '#drawing_region_barchart',
-            width: 256,
-            height: 256,
+            width: 512,
+            height: 512,
             margin: {top:10, right:10, bottom:50, left:50},
             xlabel: 'Species',
         }, input_data );
