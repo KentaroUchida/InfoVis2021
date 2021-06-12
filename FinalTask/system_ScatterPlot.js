@@ -7,7 +7,6 @@ class ScatterPlot {
             margin: config.margin || {top:10, right:10, bottom:10, left:10},
             xlabel: config.xlabel || '',
             ylabel: config.ylabel || '',
-            cscale: config.cscale
         }
         this.data = data;
         this.init();
@@ -33,12 +32,12 @@ class ScatterPlot {
             .range( [self.inner_height, 0] );
 
         self.xaxis = d3.axisBottom( self.xscale )
-            .ticks(3)
+            .ticks(10)
             .tickSize(5)
             .tickPadding(5);
 
         self.yaxis = d3.axisLeft( self.yscale )
-            .ticks(3)
+            .ticks(5)
             .tickSize(5)
             .tickPadding(5);
 
@@ -66,12 +65,12 @@ class ScatterPlot {
             .text( self.config.ylabel );
     }
 
-    update() {
+    update(selection) {
         let self = this;
 
-        self.cvalue = d => d.species;
-        self.xvalue = d => d.sepal_length;
-        self.yvalue = d => d.sepal_width;
+        self.cvalue = d => d.rain;
+        self.xvalue = d => d.rain;
+        self.yvalue = d => d.cedar;
 
         const xmin = d3.min( self.data, self.xvalue );
         const xmax = d3.max( self.data, self.xvalue );
@@ -79,12 +78,12 @@ class ScatterPlot {
 
         const ymin = d3.min( self.data, self.yvalue );
         const ymax = d3.max( self.data, self.yvalue );
-        self.yscale.domain( [ymax, ymin] );
+        self.yscale.domain( [ymin, ymax] );
 
-        self.render();
+        self.render(selection);
     }
 
-    render() {
+    render(selection) {
         let self = this;
 
         let circles = self.chart.selectAll("circle")
@@ -97,13 +96,16 @@ class ScatterPlot {
             .attr("r", circle_radius )
             .attr("cx", d => self.xscale( self.xvalue(d) ) )
             .attr("cy", d => self.yscale( self.yvalue(d) ) )
-            .attr("fill", d => self.config.cscale( self.cvalue(d) ) );
+            .attr("fill", d => { 
+                if(bar_chart_cedar.xscale(d.date)>=selection[0] && bar_chart_cedar.xscale(d.date)<=selection[1]){ return "red"; } 
+                return "black" }
+                );
 
         circles
             .on('mouseover', (e,d) => {
                 d3.select('#tooltip')
                     .style('opacity', 1)
-                    .html(`<div class="tooltip-label">${d.species}</div>(${d.sepal_length}, ${d.sepal_length})`);
+                    .html(`<div class="tooltip-label">${d.date}</div>(${d.cedar}, ${d.rain})`);
             })
             .on('mousemove', (e) => {
                 const padding = 10;

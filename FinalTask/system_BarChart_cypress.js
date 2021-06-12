@@ -83,7 +83,7 @@ class BarChartCypress {
         self.yscale.domain([ymin, ymax]);
         */
         self.xvalue = d => d.date;
-        self.yvalue = d => d.cedar;
+        self.yvalue = d => d.cypress;
 
         const xmin = d3.min( self.data, self.xvalue );
         const xmax = d3.max( self.data, self.xvalue );
@@ -110,7 +110,17 @@ class BarChartCypress {
             .attr("fill", "red" );
 
         self.xaxis_group
-            .call(self.xaxis);
+            .call(self.xaxis)
+            .selectAll("text")
+            .attr("x", "0")
+            .attr("y", "1")
+            .attr("text-anchor", "end")
+            .attr("font-family", "Tazugane Info Std N")
+            .attr("font-weight", 300)
+            .attr("font-size", "8px")
+            .attr("x", "-1")
+            .attr("y", "1")
+            .attr("transform", "rotate(-60)");
 
         self.yaxis_group
             .call(self.yaxis);

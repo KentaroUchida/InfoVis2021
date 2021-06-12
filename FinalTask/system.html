@@ -5,11 +5,11 @@
 	 body {
 	     font-family: system-ui;
 	 }
-	 .container {
+	 .container1 {
 	     display: flex;
 	 }
-	 .bar.active {
-	     stroke: #000;
+	 .container2 {
+	     display: flex;
 	 }
 	 #tooltip {
 	     position: absolute;
@@ -28,11 +28,27 @@
 	</style>
     </head>
     <body>
-	<h2>Iris Flower Dataset</h2>
+	<h2>Amount of pollen dispersed dataset</h2>
 	<div id="tooltip"></div>
-	<div class="container">
-	    <!--<div><svg id="drawing_region_scatterplot"></svg></div>-->
-	    <div><svg id="drawing_region_barchart"></svg></div>
+	<div class="container1">
+	    <div><svg id="drawing_region_barchart_cedar"></svg></div>
+		<div><svg id="drawing_region_scatterplot"></svg></div>
+	</div>
+	<div>
+		<button type="button" id="descend">Descend</button>
+	</div>
+	<div>
+		<button type="button" id="reset">Reset</button>
+	</div>
+	<div class="container2">
+		<div><svg id="drawing_region_barchart_cypress"></svg></div>
+		<div><svg id="drawing_region_scatterplot"></svg></div>
+	</div>
+	<div>
+		<button type="button" id="descend">Descend</button>
+	</div>
+	<div>
+		<button type="button" id="reset">Reset</button>
 	</div>
 	<script src="https://d3js.org/d3.v6.min.js"></script>
 	<script src="system_ScatterPlot.js"></script>

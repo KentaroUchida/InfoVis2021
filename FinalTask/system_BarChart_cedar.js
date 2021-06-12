@@ -46,7 +46,7 @@ class BarChartCedar {
 
         self.yaxis_group = self.chart.append('g');
 
-        const xlabel_space = 40;
+        const xlabel_space = 50;
         self.svg.append('text')
             .style('font-size', '12px')
             .attr('x', self.config.width / 2)
@@ -64,24 +64,11 @@ class BarChartCedar {
             .text( self.config.ylabel );
     }
 
+
     update() {
+
         let self = this;
 
-        /*
-        const data_map = d3.rollup( self.data, v => v.length, d => d.species );
-        self.aggregated_data = Array.from( data_map, ([key,count]) => ({key,count}) );
-
-        self.cvalue = d => d.key;
-        self.xvalue = d => d.key;
-        self.yvalue = d => d.count;
-
-        const items = self.aggregated_data.map( self.xvalue );
-        self.xscale.domain(items);
-
-        const ymin = 0;
-        const ymax = d3.max( self.aggregated_data, self.yvalue );
-        self.yscale.domain([ymin, ymax]);
-        */
         self.xvalue = d => d.date;
         self.yvalue = d => d.cedar;
 
@@ -93,11 +80,24 @@ class BarChartCedar {
         const ymax = d3.max( self.data, self.yvalue );
         self.yscale.domain( [ymin, ymax] );
 
+        self.brush = d3.brushX()
+            .extent([[0, 0], [self.inner_width,self.inner_height]])
+            .on("brush", self.brushed)
+            .on("end", self.brushended);;
+
         self.render();
     }
 
     render() {
         let self = this;
+
+        self.chart.append("g") //brushグループを作成
+            .attr("class", "x brush")
+            .call(self.brush)
+            .selectAll("rect")
+            .attr("y", -6)
+            .attr("height", self.inner_height );
+        
         
         self.chart.selectAll(".bar")
             .data(self.data)
@@ -107,12 +107,54 @@ class BarChartCedar {
             .attr("y", d => self.yscale( self.yvalue(d) ) )
             .attr("width", self.xscale.bandwidth())
             .attr("height", d => self.inner_height - self.yscale( self.yvalue(d) ))
-            .attr("fill", "red" );
+            .attr("fill", "orange" );
 
         self.xaxis_group
-            .call(self.xaxis);
+            .call(self.xaxis)
+            .selectAll("text")
+            .attr("x", "0")
+            .attr("y", "1")
+            .attr("text-anchor", "end")
+            .attr("font-family", "Tazugane Info Std N")
+            .attr("font-weight", 300)
+            .attr("font-size", "8px")
+            .attr("x", "-1")
+            .attr("y", "1")
+            .attr("transform", "rotate(-60)");
+
+        d3.select('#descend')
+            .on('click', d => {
+                self.data.sort((a,b) => d3.descending(a.cedar,b.cedar));
+                self.update();
+            })
+
+        d3.select('#reset')
+            .on('click', d => {
+                self.data.sort(function (a, b) {
+                    return a.date - b.date 
+                });
+                self.update();
+            })
 
         self.yaxis_group
             .call(self.yaxis);
+
     }
+
+    brushed({selection}) {
+        let self = this;
+        if(selection){
+            scatter_plot.update(selection);
+        }
+    }
+
+    brushended({selection}) {
+        let self = this;
+        if(!selection){
+            scatter_plot.update("");
+        }
+    }
+    
+
 }
+

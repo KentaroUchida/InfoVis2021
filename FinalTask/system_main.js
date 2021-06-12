@@ -12,42 +12,36 @@ d3.csv("https://kentarouchida.github.io/InfoVis2021/FinalTask/final_task_data.cs
             d.cedar = +d.cedar;
             d.cypress = +d.cypress;
         });
-
-        /*
-        const color_scale = d3.scaleOrdinal( d3.schemeCategory10 );
-        color_scale.domain(['setosa','versicolor','virginica']);
-
-        scatter_plot = new ScatterPlot( {
-            parent: '#drawing_region_scatterplot',
-            width: 256,
-            height: 256,
-            margin: {top:10, right:10, bottom:50, left:50},
-            xlabel: 'Sepal length [cm]',
-            ylabel: 'Sepal width [cm]',
-            cscale: color_scale
-        }, input_data );
-        scatter_plot.update();
-        */
-
+        
         bar_chart_cedar = new BarChartCedar( {
             parent: '#drawing_region_barchart_cedar',
-            width: 512,
-            height: 256,
+            width: 650,
+            height: 310,
             margin: {top:10, right:10, bottom:50, left:50},
             xlabel: 'date',
-            ylabel: 'Amount of pollen dispersed',
+            ylabel: 'Amount of cedar pollen dispersed [/cm^2]',
         }, input_data );
         bar_chart_cedar.update();
 
+        scatter_plot = new ScatterPlot( {
+            parent: '#drawing_region_scatterplot',
+            width: 310,
+            height: 310,
+            margin: {top:10, right:10, bottom:50, left:50},
+            xlabel: 'Precipitation [mm]',
+        }, input_data );
+        scatter_plot.update("");
+
         bar_chart_cypress = new BarChartCypress( {
             parent: '#drawing_region_barchart_cypress',
-            width: 512,
-            height: 256,
+            width: 650,
+            height: 310,
             margin: {top:10, right:10, bottom:50, left:50},
             xlabel: 'date',
-            ylabel: 'Amount of pollen dispersed',
+            ylabel: 'Amount of cypress pollen dispersed [/cm^2]',
         }, input_data );
         bar_chart_cypress.update();
+        
     })
     .catch( error => {
         console.log( error );
