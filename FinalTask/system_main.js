@@ -23,14 +23,14 @@ d3.csv("https://kentarouchida.github.io/InfoVis2021/FinalTask/final_task_data.cs
         }, input_data );
         bar_chart_cedar.update();
 
-        scatter_plot = new ScatterPlot( {
-            parent: '#drawing_region_scatterplot',
+        scatter_plot_cedar = new ScatterPlotCedar( {
+            parent: '#drawing_region_scatterplot_cedar',
             width: 310,
             height: 310,
             margin: {top:10, right:10, bottom:50, left:50},
             xlabel: 'Precipitation [mm]',
         }, input_data );
-        scatter_plot.update("");
+        scatter_plot_cedar.update("");
 
         bar_chart_cypress = new BarChartCypress( {
             parent: '#drawing_region_barchart_cypress',
@@ -41,6 +41,15 @@ d3.csv("https://kentarouchida.github.io/InfoVis2021/FinalTask/final_task_data.cs
             ylabel: 'Amount of cypress pollen dispersed [/cm^2]',
         }, input_data );
         bar_chart_cypress.update();
+
+        scatter_plot_cypress = new ScatterPlotCypress( {
+            parent: '#drawing_region_scatterplot_cypress',
+            width: 310,
+            height: 310,
+            margin: {top:10, right:10, bottom:50, left:50},
+            xlabel: 'Precipitation [mm]',
+        }, input_data );
+        scatter_plot_cedar.update("");
         
     })
     .catch( error => {

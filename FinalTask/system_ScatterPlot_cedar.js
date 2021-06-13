@@ -1,4 +1,4 @@
-class ScatterPlot {
+class ScatterPlotCedar {
     constructor( config, data ) {
         this.config = {
             parent: config.parent,
@@ -68,7 +68,6 @@ class ScatterPlot {
     update(selection) {
         let self = this;
 
-        self.cvalue = d => d.rain;
         self.xvalue = d => d.rain;
         self.yvalue = d => d.cedar;
 
@@ -97,7 +96,11 @@ class ScatterPlot {
             .attr("cx", d => self.xscale( self.xvalue(d) ) )
             .attr("cy", d => self.yscale( self.yvalue(d) ) )
             .attr("fill", d => { 
-                if(bar_chart_cedar.xscale(d.date)>=selection[0] && bar_chart_cedar.xscale(d.date)<=selection[1]){ return "red"; } 
+                if(selection){
+                    if(bar_chart_cedar.xscale(d.date)>=selection[0] && bar_chart_cedar.xscale(d.date)<=selection[1]){ 
+                        return "red"; 
+                    }
+                }
                 return "black" }
                 );
 

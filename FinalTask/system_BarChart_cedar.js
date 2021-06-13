@@ -62,6 +62,11 @@ class BarChartCedar {
             .attr('text-anchor', 'middle')
             .attr('dy', '1em')
             .text( self.config.ylabel );
+        
+        self.brush = d3.brushX()
+            .extent([[0, 0], [self.inner_width,self.inner_height]])
+            .on("brush", self.brushed);
+
     }
 
 
@@ -80,29 +85,17 @@ class BarChartCedar {
         const ymax = d3.max( self.data, self.yvalue );
         self.yscale.domain( [ymin, ymax] );
 
-        self.brush = d3.brushX()
-            .extent([[0, 0], [self.inner_width,self.inner_height]])
-            .on("brush", self.brushed)
-            .on("end", self.brushended);;
-
         self.render();
     }
 
     render() {
         let self = this;
-
-        self.chart.append("g") //brushグループを作成
-            .attr("class", "x brush")
-            .call(self.brush)
-            .selectAll("rect")
-            .attr("y", -6)
-            .attr("height", self.inner_height );
-        
         
         self.chart.selectAll(".bar")
             .data(self.data)
             .join("rect")
             .attr("class", "bar")
+            .transition().duration(1000)
             .attr("x", d => self.xscale( self.xvalue(d) ) )
             .attr("y", d => self.yscale( self.yvalue(d) ) )
             .attr("width", self.xscale.bandwidth())
@@ -122,39 +115,39 @@ class BarChartCedar {
             .attr("y", "1")
             .attr("transform", "rotate(-60)");
 
+        
+        self.yaxis_group
+            .call(self.yaxis);
+
+        const gb = self.chart.append("g") //brushグループを作成
+            .attr("class", "x brush")
+            .call(self.brush)
+            .call(self.brush.clear);
+
         d3.select('#descend')
             .on('click', d => {
+                gb.call(self.brush.clear);
                 self.data.sort((a,b) => d3.descending(a.cedar,b.cedar));
                 self.update();
+                scatter_plot.update(self.brush.selection);
             })
 
         d3.select('#reset')
             .on('click', d => {
-                self.data.sort(function (a, b) {
-                    return a.date - b.date 
-                });
+                gb.call(self.brush.clear);
+                self.data.sort((a,b) => {return a.id-b.id; });
                 self.update();
+                scatter_plot.update(self.brush.selection);
             })
-
-        self.yaxis_group
-            .call(self.yaxis);
 
     }
 
     brushed({selection}) {
         let self = this;
         if(selection){
-            scatter_plot.update(selection);
+            scatter_plot_cedar.update(selection);
         }
     }
-
-    brushended({selection}) {
-        let self = this;
-        if(!selection){
-            scatter_plot.update("");
-        }
-    }
-    
 
 }
 
