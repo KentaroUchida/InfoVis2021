@@ -124,7 +124,7 @@ class BarChartCypress {
             .call(self.brush)
             .call(self.brush.clear);
 
-        d3.select('#descend')
+        d3.select('#descend2')
             .on('click', d => {
                 gb.call(self.brush.clear);
                 self.data.sort((a,b) => d3.descending(a.cypress,b.cypress));
@@ -132,7 +132,7 @@ class BarChartCypress {
                 scatter_plot.update(self.brush.selection);
             })
 
-        d3.select('#reset')
+        d3.select('#reset2')
             .on('click', d => {
                 gb.call(self.brush.clear);
                 self.data.sort((a,b) => {return a.id-b.id; });

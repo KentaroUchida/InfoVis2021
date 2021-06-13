@@ -49,7 +49,7 @@ d3.csv("https://kentarouchida.github.io/InfoVis2021/FinalTask/final_task_data.cs
             margin: {top:10, right:10, bottom:50, left:50},
             xlabel: 'Precipitation [mm]',
         }, input_data );
-        scatter_plot_cedar.update("");
+        scatter_plot_cypress.update("");
         
     })
     .catch( error => {

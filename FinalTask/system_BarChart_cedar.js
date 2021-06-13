@@ -124,7 +124,7 @@ class BarChartCedar {
             .call(self.brush)
             .call(self.brush.clear);
 
-        d3.select('#descend')
+        d3.select('#descend1')
             .on('click', d => {
                 gb.call(self.brush.clear);
                 self.data.sort((a,b) => d3.descending(a.cedar,b.cedar));
@@ -132,7 +132,7 @@ class BarChartCedar {
                 scatter_plot.update(self.brush.selection);
             })
 
-        d3.select('#reset')
+        d3.select('#reset1')
             .on('click', d => {
                 gb.call(self.brush.clear);
                 self.data.sort((a,b) => {return a.id-b.id; });
