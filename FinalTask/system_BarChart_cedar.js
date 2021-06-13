@@ -129,7 +129,8 @@ class BarChartCedar {
                 gb.call(self.brush.clear);
                 self.data.sort((a,b) => d3.descending(a.cedar,b.cedar));
                 self.update();
-                scatter_plot_cedar.update(self.brush.selection);
+                scatter_plot_cedar_rain.update(self.brush.selection);
+                scatter_plot_cedar_sun.update(self.brush.selection);
             })
 
         d3.select('#reset1')
@@ -137,7 +138,8 @@ class BarChartCedar {
                 gb.call(self.brush.clear);
                 self.data.sort((a,b) => {return a.id-b.id; });
                 self.update();
-                scatter_plot_cedar.update(self.brush.selection);
+                scatter_plot_cedar_rain.update(self.brush.selection);
+                scatter_plot_cedar_sun.update(self.brush.selection);
             })
 
     }
@@ -145,7 +147,8 @@ class BarChartCedar {
     brushed({selection}) {
         let self = this;
         if(selection){
-            scatter_plot_cedar.update(selection);
+            scatter_plot_cedar_rain.update(selection);
+            scatter_plot_cedar_sun.update(selection);
         }
     }
 

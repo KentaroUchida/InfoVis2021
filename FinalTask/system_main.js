@@ -23,14 +23,23 @@ d3.csv("https://kentarouchida.github.io/InfoVis2021/FinalTask/final_task_data.cs
         }, input_data );
         bar_chart_cedar.update();
 
-        scatter_plot_cedar = new ScatterPlotCedar( {
-            parent: '#drawing_region_scatterplot_cedar',
+        scatter_plot_cedar = new ScatterPlotCedarRain( {
+            parent: '#drawing_region_scatterplot_cedar_rain',
             width: 310,
             height: 310,
             margin: {top:10, right:10, bottom:50, left:50},
             xlabel: 'Precipitation [mm]',
         }, input_data );
-        scatter_plot_cedar.update("");
+        scatter_plot_cedar_rain.update("");
+
+        scatter_plot_cedar = new ScatterPlotCedarSun( {
+            parent: '#drawing_region_scatterplot_cedar_sun',
+            width: 310,
+            height: 310,
+            margin: {top:10, right:10, bottom:50, left:50},
+            xlabel: 'Daylight hours',
+        }, input_data );
+        scatter_plot_cedar_sun.update("");
 
         bar_chart_cypress = new BarChartCypress( {
             parent: '#drawing_region_barchart_cypress',
@@ -42,21 +51,21 @@ d3.csv("https://kentarouchida.github.io/InfoVis2021/FinalTask/final_task_data.cs
         }, input_data );
         bar_chart_cypress.update();
 
-        scatter_plot_cypress = new ScatterPlotCypress( {
-            parent: '#drawing_region_scatterplot_cypress',
+        scatter_plot_cypress = new ScatterPlotCypressRain( {
+            parent: '#drawing_region_scatterplot_cypress_rain',
             width: 310,
             height: 310,
             margin: {top:10, right:10, bottom:50, left:50},
             xlabel: 'Precipitation [mm]',
         }, input_data );
-        scatter_plot_cypress.update("");
+        scatter_plot_cypress_rain.update("");
 
         scatter_plot_cypress_sun = new ScatterPlotCypressSun( {
             parent: '#drawing_region_scatterplot_cypress_sun',
             width: 310,
             height: 310,
             margin: {top:10, right:10, bottom:50, left:50},
-            xlabel: 'Precipitation [mm]',
+            xlabel: 'Daylight hours',
         }, input_data );
         scatter_plot_cypress_sun.update("");
         

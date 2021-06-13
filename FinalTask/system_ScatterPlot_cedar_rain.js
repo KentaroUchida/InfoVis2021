@@ -1,4 +1,4 @@
-class ScatterPlotCedar {
+class ScatterPlotCedarRain {
     constructor( config, data ) {
         this.config = {
             parent: config.parent,
