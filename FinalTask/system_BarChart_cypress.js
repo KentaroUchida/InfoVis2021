@@ -129,7 +129,7 @@ class BarChartCypress {
                 gb.call(self.brush.clear);
                 self.data.sort((a,b) => d3.descending(a.cypress,b.cypress));
                 self.update();
-                scatter_plot_cypress.update(self.brush.selection);
+                scatter_plot_cypress_rain.update(self.brush.selection);
                 scatter_plot_cypress_sun.update(self.brush.selection);
             })
 
@@ -138,7 +138,7 @@ class BarChartCypress {
                 gb.call(self.brush.clear);
                 self.data.sort((a,b) => {return a.id-b.id; });
                 self.update();
-                scatter_plot_cypress.update(self.brush.selection);
+                scatter_plot_cypress_rain.update(self.brush.selection);
                 scatter_plot_cypress_sun.update(self.brush.selection);
             })
 
@@ -147,7 +147,7 @@ class BarChartCypress {
     brushed({selection}) {
         let self = this;
         if(selection){
-            scatter_plot_cypress.update(selection);
+            scatter_plot_cypress_rain.update(selection);
             scatter_plot_cypress_sun.update(selection);
         }
     }

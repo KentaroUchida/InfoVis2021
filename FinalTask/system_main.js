@@ -23,7 +23,7 @@ d3.csv("https://kentarouchida.github.io/InfoVis2021/FinalTask/final_task_data.cs
         }, input_data );
         bar_chart_cedar.update();
 
-        scatter_plot_cedar = new ScatterPlotCedarRain( {
+        scatter_plot_cedar_rain = new ScatterPlotCedarRain( {
             parent: '#drawing_region_scatterplot_cedar_rain',
             width: 310,
             height: 310,
@@ -32,7 +32,7 @@ d3.csv("https://kentarouchida.github.io/InfoVis2021/FinalTask/final_task_data.cs
         }, input_data );
         scatter_plot_cedar_rain.update("");
 
-        scatter_plot_cedar = new ScatterPlotCedarSun( {
+        scatter_plot_cedar_sun = new ScatterPlotCedarSun( {
             parent: '#drawing_region_scatterplot_cedar_sun',
             width: 310,
             height: 310,
@@ -51,7 +51,7 @@ d3.csv("https://kentarouchida.github.io/InfoVis2021/FinalTask/final_task_data.cs
         }, input_data );
         bar_chart_cypress.update();
 
-        scatter_plot_cypress = new ScatterPlotCypressRain( {
+        scatter_plot_cypress_rain = new ScatterPlotCypressRain( {
             parent: '#drawing_region_scatterplot_cypress_rain',
             width: 310,
             height: 310,
