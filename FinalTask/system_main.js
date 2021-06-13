@@ -50,6 +50,15 @@ d3.csv("https://kentarouchida.github.io/InfoVis2021/FinalTask/final_task_data.cs
             xlabel: 'Precipitation [mm]',
         }, input_data );
         scatter_plot_cypress.update("");
+
+        scatter_plot_cypress_sun = new ScatterPlotCypressSun( {
+            parent: '#drawing_region_scatterplot_cypress_sun',
+            width: 310,
+            height: 310,
+            margin: {top:10, right:10, bottom:50, left:50},
+            xlabel: 'Precipitation [mm]',
+        }, input_data );
+        scatter_plot_cypress_sun.update("");
         
     })
     .catch( error => {
